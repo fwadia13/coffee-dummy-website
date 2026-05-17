@@ -1,50 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Shop</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Copper Kettle — Est. 1923</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital@0;1&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet" />
 </head>
-
 <body>
-    <header>
-        <nav class="navbar">
-            <a href="#" class="logo">Coffee<span>.</span></a>
-            <ul class="menu-links">
-                <span id="close-menu-btn"> class="material-symbols-outlined">close</span>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Product</a></li>
-                <li><a href="#">Testimonials</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-            <span id="menu-btn"> class="material-symbols-outlined">menu</span>
-        </nav>
-    </header>
-    <section class="hero-section">
-        <div class="content">
-            <h1>Start Your Day With Fresh Coffee</h1>
-            <p>Coffee is a popular and beloved beverage enjoyed by people around the world. Awaken your senses with
-                our premium selection of ethically sourced beans, roasted to perfection.
-            </p>
-            <button>Order Now</button>
+
+  
+  <div class="noise"></div>
+
+  
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-badge">☕</span>
+        <div>
+          <p class="logo-est">Est. 1923</p>
+          <h1 class="logo-name">The Copper Kettle</h1>
         </div>
-    </section>
-    <script>
-        const header = document.querySelector('header');
-        const menuBtn = document.getElementById('menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
+      </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#story">Our Story</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
-        menuBtn.addEventListener('click', () => {
-            header.classList.toggle('show-mobile-menu');
-        });
-        closeMenuBtn.addEventListener('click', () => {
-            menuBtn.click();
-        });
-    </script>
+  
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <p class="hero-tagline fade-in">Handcrafted · Timeless · Warm</p>
+      <h2 class="hero-headline fade-in delay-1">Where Every Cup<br/><em>Tells a Story</em></h2>
+      <p class="hero-sub fade-in delay-2">Nestled in the heart of the city since 1923,<br/>we brew tradition one cup at a time.</p>
+      <a href="#menu" class="btn fade-in delay-3">Explore Our Menu</a>
+    </div>
+    <div class="hero-stamp">
+      <svg viewBox="0 0 120 120" class="stamp-svg">
+        <path id="stamp-circle" d="M 60,60 m -40,0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="none"/>
+        <text>
+          <textPath href="#stamp-circle">PREMIUM ROAST · SINCE 1923 · COPPER KETTLE ·</textPath>
+        </text>
+        <text x="60" y="55" text-anchor="middle" class="stamp-inner-top">THE</text>
+        <text x="60" y="70" text-anchor="middle" class="stamp-inner-mid">ORIGINAL</text>
+      </svg>
+    </div>
+  </section>
+
+  
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>Single Origin Beans</span><span class="dot">✦</span>
+      <span>Cold Brew</span><span class="dot">✦</span>
+      <span>Pour Over</span><span class="dot">✦</span>
+      <span>French Press</span><span class="dot">✦</span>
+      <span>Espresso</span><span class="dot">✦</span>
+      <span>Artisan Pastries</span><span class="dot">✦</span>
+      <span>Fresh Roasted Daily</span><span class="dot">✦</span>
+      <span>Single Origin Beans</span><span class="dot">✦</span>
+      <span>Cold Brew</span><span class="dot">✦</span>
+      <span>Pour Over</span><span class="dot">✦</span>
+      <span>French Press</span><span class="dot">✦</span>
+      <span>Espresso</span><span class="dot">✦</span>
+      <span>Artisan Pastries</span><span class="dot">✦</span>
+      <span>Fresh Roasted Daily</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  
+  <section class="menu-section" id="menu">
+    <div class="section-header">
+      <p class="section-eyebrow">— Our Offerings —</p>
+      <h2 class="section-title">The Menu</h2>
+      <p class="section-sub">Crafted with care, served with love.</p>
+    </div>
+
+    
+    <div class="menu-tabs">
+      <button class="tab-btn active" data-tab="coffee">Coffee</button>
+      <button class="tab-btn" data-tab="tea">Tea & More</button>
+      <button class="tab-btn" data-tab="food">Food</button>
+    </div>
+
+    <!-- Coffee -->
+    <div class="menu-grid" id="tab-coffee">
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">☕</span>
+          <span class="menu-price">₹180</span>
+        </div>
+        <h3>Espresso</h3>
+        <p>Rich, bold & unapologetic. Double shot of our house blend.</p>
+        <span class="menu-tag">Bestseller</span>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🥛</span>
+          <span class="menu-price">₹220</span>
+        </div>
+        <h3>Flat White</h3>
+        <p>Silky micro-foam over a ristretto shot. Smooth and balanced.</p>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🧊</span>
+          <span class="menu-price">₹260</span>
+        </div>
+        <h3>Cold Brew</h3>
+        <p>Steeped 18 hours overnight. Naturally sweet, zero bitterness.</p>
+        <span class="menu-tag">House Special</span>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🫗</span>
+          <span class="menu-price">₹240</span>
+        </div>
+        <h3>Pour Over</h3>
+        <p>Single origin Ethiopian beans, bloomed and brewed to order.</p>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🌿</span>
+          <span class="menu-price">₹280</span>
+        </div>
+        <h3>Oat Latte</h3>
+        <p>House espresso with creamy oat milk. A modern classic.</p>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🍮</span>
+          <span class="menu-price">₹300</span>
+        </div>
+        <h3>Vintage Mocha</h3>
+        <p>Dark chocolate ganache with double espresso and steamed milk.</p>
+        <span class="menu-tag">Signature</span>
+      </div>
+    </div>
+
+    
+    <div class="menu-grid hidden" id="tab-tea">
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🍵</span>
+          <span class="menu-price">₹160</span>
+        </div>
+        <h3>Masala Chai</h3>
+        <p>Spiced with cardamom, ginger & clove. Brewed the old way.</p>
+        <span class="menu-tag">Bestseller</span>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🌸</span>
+          <span class="menu-price">₹190</span>
+        </div>
+        <h3>Rose Oolong</h3>
+        <p>Floral and delicate. Taiwanese oolong with dried rose petals.</p>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🍋</span>
+          <span class="menu-price">₹200</span>
+        </div>
+        <h3>Honey Lemon Ginger</h3>
+        <p>Warming and bright. A house-made tisane, zero caffeine.</p>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🧃</span>
+          <span class="menu-price">₹220</span>
+        </div>
+        <h3>Turmeric Latte</h3>
+        <p>Golden milk with oat milk, black pepper & raw honey.</p>
+        <span class="menu-tag">Healthy Pick</span>
+      </div>
+    </div>
+
+    
+    <div class="menu-grid hidden" id="tab-food">
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🥐</span>
+          <span class="menu-price">₹140</span>
+        </div>
+        <h3>Butter Croissant</h3>
+        <p>Flaky, golden, laminated in-house. Best eaten warm.</p>
+        <span class="menu-tag">Bestseller</span>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🍰</span>
+          <span class="menu-price">₹180</span>
+        </div>
+        <h3>Walnut Banana Cake</h3>
+        <p>Moist, old-fashioned banana bread loaded with toasted walnuts.</p>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🥪</span>
+          <span class="menu-price">₹260</span>
+        </div>
+        <h3>Croque Monsieur</h3>
+        <p>Gruyère, ham & béchamel on sourdough. The Parisian classic.</p>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">
+          <span class="menu-icon">🍮</span>
+          <span class="menu-price">₹160</span>
+        </div>
+        <h3>Crème Caramel</h3>
+        <p>Silky, wobbly, bittersweet. Grandma's recipe, unchanged.</p>
+        <span class="menu-tag">Signature</span>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="story-section" id="story">
+    <div class="story-inner">
+      <div class="story-text">
+        <p class="section-eyebrow">— About Us —</p>
+        <h2 class="section-title">A Century of Coffee</h2>
+        <p>The Copper Kettle was born in 1923 when <strong>Margaret & Theodore Holt</strong> opened a small tea house on Bunder Street. A kettle on the stove, mismatched chairs, and a love for good conversation.</p>
+        <p>Three generations later, we still roast our beans the same way — slow, patient, and by hand. The recipes haven't changed. The warmth hasn't changed. Only the city around us has grown.</p>
+        <p>We believe a great cup of coffee is an act of care. Come sit with us.</p>
+        <div class="story-stats">
+          <div class="stat"><span class="stat-num">100+</span><span>Years Brewing</span></div>
+          <div class="stat"><span class="stat-num">12</span><span>Origins Sourced</span></div>
+          <div class="stat"><span class="stat-num">∞</span><span>Stories Shared</span></div>
+        </div>
+      </div>
+      <div class="story-visual">
+        <div class="vintage-frame">
+          <div class="frame-inner">
+            <div class="coffee-art">
+              <div class="cup-body">
+                <div class="cup-steam">
+                  <div class="steam s1"></div>
+                  <div class="steam s2"></div>
+                  <div class="steam s3"></div>
+                </div>
+                <div class="cup-top"></div>
+                <div class="cup-liquid"></div>
+                <div class="cup-base"></div>
+                <div class="cup-handle"></div>
+                <div class="cup-saucer"></div>
+              </div>
+            </div>
+            <p class="frame-caption">"Good coffee and good company<br/>are life's finest luxuries."</p>
+            <p class="frame-credit">— Margaret Holt, 1923</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ 
+  <section class="gallery-section" id="gallery">
+    <div class="section-header">
+      <p class="section-eyebrow">— Moments —</p>
+      <h2 class="section-title">The Atmosphere</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item g1">
+        <div class="gallery-placeholder">
+          <span>☕</span>
+          <p>Morning Pour</p>
+        </div>
+      </div>
+      <div class="gallery-item g2">
+        <div class="gallery-placeholder">
+          <span>🌿</span>
+          <p>Latte Art</p>
+        </div>
+      </div>
+      <div class="gallery-item g3">
+        <div class="gallery-placeholder">
+          <span>📚</span>
+          <p>A Quiet Corner</p>
+        </div>
+      </div>
+      <div class="gallery-item g4">
+        <div class="gallery-placeholder">
+          <span>🥐</span>
+          <p>Fresh Bakes</p>
+        </div>
+      </div>
+      <div class="gallery-item g5">
+        <div class="gallery-placeholder">
+          <span>🫙</span>
+          <p>Our Pantry</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="testimonials-section">
+    <div class="section-header">
+      <p class="section-eyebrow">— Regulars Say —</p>
+      <h2 class="section-title">Voices from the Table</h2>
+    </div>
+    <div class="testimonial-cards">
+      <div class="testimonial">
+        <p class="t-quote">"I've tried coffee from London to Tokyo. The Copper Kettle's cold brew is still the finest I've ever had."</p>
+        <p class="t-author">— Priya Sharma, Mumbai</p>
+        <div class="t-stars">★★★★★</div>
+      </div>
+      <div class="testimonial">
+        <p class="t-quote">"Walking in here feels like stepping back in time — in the absolute best way. The croissants are dangerously good."</p>
+        <p class="t-author">— James Ferreira, Goa</p>
+        <div class="t-stars">★★★★★</div>
+      </div>
+      <div class="testimonial">
+        <p class="t-quote">"My grandmother used to bring me here as a child. Now I bring my own daughter. Some things must never change."</p>
+        <p class="t-author">— Meenakshi Iyer, Chennai</p>
+        <div class="t-stars">★★★★★</div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <p class="section-eyebrow">— Find Us —</p>
+        <h2 class="section-title">Come On In</h2>
+        <div class="contact-detail">
+          <span class="c-icon">📍</span>
+          <div>
+            <strong>Address</strong>
+            <p>12 Bunder Street, Fort<br/>Mumbai, Maharashtra 400001</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="c-icon">🕰️</span>
+          <div>
+            <strong>Hours</strong>
+            <p>Monday – Friday: 7am – 9pm<br/>Saturday – Sunday: 8am – 10pm</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="c-icon">📞</span>
+          <div>
+            <strong>Phone</strong>
+            <p>+91 98765 43210</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="c-icon">✉️</span>
+          <div>
+            <strong>Email</strong>
+            <p>hello@thecopperkettlecafe.in</p>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="contact-form-wrap">
+        <h3>Leave a Note</h3>
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" placeholder="Margaret Holt" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" rows="4" placeholder="We'd love to hear from you..."></textarea>
+        </div>
+        <button class="btn" id="sendBtn">Send Message</button>
+        <p class="form-success hidden" id="formSuccess">✓ Thank you! We'll write back soon.</p>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span>☕</span>
+        <p>The Copper Kettle</p>
+        <p class="footer-tagline">Est. 1923 · Mumbai</p>
+      </div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#story">Our Story</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="footer-copy">© 2024 The Copper Kettle. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
