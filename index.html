@@ -9,10 +9,8 @@
 </head>
 <body>
 
-  
   <div class="noise"></div>
 
-  
   <header class="site-header">
     <div class="header-inner">
       <div class="logo">
@@ -25,17 +23,23 @@
       <nav class="nav-links" id="navLinks">
         <a href="#home">Home</a>
         <a href="#menu">Menu</a>
+        <a href="#checkout">Checkout</a>
+        <a href="#orders">My Orders</a>
         <a href="#story">Our Story</a>
-        <a href="#gallery">Gallery</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="header-actions">
+        <button class="cart-button" id="cartBtn" aria-label="Open cart">
+          <span class="cart-icon">🛍️</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  
   <section class="hero" id="home">
     <div class="hero-content">
       <p class="hero-tagline fade-in">Handcrafted · Timeless · Warm</p>
@@ -55,7 +59,6 @@
     </div>
   </section>
 
-  
   <div class="marquee-strip">
     <div class="marquee-track">
       <span>Single Origin Beans</span><span class="dot">✦</span>
@@ -75,7 +78,6 @@
     </div>
   </div>
 
-  
   <section class="menu-section" id="menu">
     <div class="section-header">
       <p class="section-eyebrow">— Our Offerings —</p>
@@ -83,16 +85,27 @@
       <p class="section-sub">Crafted with care, served with love.</p>
     </div>
 
-    
+    <div class="menu-actions">
+      <div class="search-wrap">
+        <input type="search" id="menuSearch" placeholder="Search menu items..." />
+        <button id="clearSearch" aria-label="Clear search">✕</button>
+      </div>
+      <div class="filter-badges">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="coffee">Coffee</button>
+        <button class="filter-btn" data-filter="tea">Tea</button>
+        <button class="filter-btn" data-filter="food">Food</button>
+      </div>
+    </div>
+
     <div class="menu-tabs">
       <button class="tab-btn active" data-tab="coffee">Coffee</button>
       <button class="tab-btn" data-tab="tea">Tea & More</button>
       <button class="tab-btn" data-tab="food">Food</button>
     </div>
 
-    <!-- Coffee -->
     <div class="menu-grid" id="tab-coffee">
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="espresso" data-name="Espresso" data-category="coffee" data-price="180" data-desc="Rich, bold & unapologetic. Double shot of our house blend.">
         <div class="menu-card-top">
           <span class="menu-icon">☕</span>
           <span class="menu-price">₹180</span>
@@ -101,7 +114,7 @@
         <p>Rich, bold & unapologetic. Double shot of our house blend.</p>
         <span class="menu-tag">Bestseller</span>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="flat-white" data-name="Flat White" data-category="coffee" data-price="220" data-desc="Silky micro-foam over a ristretto shot. Smooth and balanced.">
         <div class="menu-card-top">
           <span class="menu-icon">🥛</span>
           <span class="menu-price">₹220</span>
@@ -109,7 +122,7 @@
         <h3>Flat White</h3>
         <p>Silky micro-foam over a ristretto shot. Smooth and balanced.</p>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="cold-brew" data-name="Cold Brew" data-category="coffee" data-price="260" data-desc="Steeped 18 hours overnight. Naturally sweet, zero bitterness.">
         <div class="menu-card-top">
           <span class="menu-icon">🧊</span>
           <span class="menu-price">₹260</span>
@@ -118,7 +131,7 @@
         <p>Steeped 18 hours overnight. Naturally sweet, zero bitterness.</p>
         <span class="menu-tag">House Special</span>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="pour-over" data-name="Pour Over" data-category="coffee" data-price="240" data-desc="Single origin Ethiopian beans, bloomed and brewed to order.">
         <div class="menu-card-top">
           <span class="menu-icon">🫗</span>
           <span class="menu-price">₹240</span>
@@ -126,7 +139,7 @@
         <h3>Pour Over</h3>
         <p>Single origin Ethiopian beans, bloomed and brewed to order.</p>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="oat-latte" data-name="Oat Latte" data-category="coffee" data-price="280" data-desc="House espresso with creamy oat milk. A modern classic.">
         <div class="menu-card-top">
           <span class="menu-icon">🌿</span>
           <span class="menu-price">₹280</span>
@@ -134,7 +147,7 @@
         <h3>Oat Latte</h3>
         <p>House espresso with creamy oat milk. A modern classic.</p>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="vintage-mocha" data-name="Vintage Mocha" data-category="coffee" data-price="300" data-desc="Dark chocolate ganache with double espresso and steamed milk.">
         <div class="menu-card-top">
           <span class="menu-icon">🍮</span>
           <span class="menu-price">₹300</span>
@@ -143,11 +156,11 @@
         <p>Dark chocolate ganache with double espresso and steamed milk.</p>
         <span class="menu-tag">Signature</span>
       </div>
+      <p class="no-results hidden">No items match your search.</p>
     </div>
 
-    
     <div class="menu-grid hidden" id="tab-tea">
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="masala-chai" data-name="Masala Chai" data-category="tea" data-price="160" data-desc="Spiced with cardamom, ginger & clove. Brewed the old way.">
         <div class="menu-card-top">
           <span class="menu-icon">🍵</span>
           <span class="menu-price">₹160</span>
@@ -156,7 +169,7 @@
         <p>Spiced with cardamom, ginger & clove. Brewed the old way.</p>
         <span class="menu-tag">Bestseller</span>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="rose-oolong" data-name="Rose Oolong" data-category="tea" data-price="190" data-desc="Floral and delicate. Taiwanese oolong with dried rose petals.">
         <div class="menu-card-top">
           <span class="menu-icon">🌸</span>
           <span class="menu-price">₹190</span>
@@ -164,7 +177,7 @@
         <h3>Rose Oolong</h3>
         <p>Floral and delicate. Taiwanese oolong with dried rose petals.</p>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="honey-lemon-ginger" data-name="Honey Lemon Ginger" data-category="tea" data-price="200" data-desc="Warming and bright. A house-made tisane, zero caffeine.">
         <div class="menu-card-top">
           <span class="menu-icon">🍋</span>
           <span class="menu-price">₹200</span>
@@ -172,7 +185,7 @@
         <h3>Honey Lemon Ginger</h3>
         <p>Warming and bright. A house-made tisane, zero caffeine.</p>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="turmeric-latte" data-name="Turmeric Latte" data-category="tea" data-price="220" data-desc="Golden milk with oat milk, black pepper & raw honey.">
         <div class="menu-card-top">
           <span class="menu-icon">🧃</span>
           <span class="menu-price">₹220</span>
@@ -181,11 +194,11 @@
         <p>Golden milk with oat milk, black pepper & raw honey.</p>
         <span class="menu-tag">Healthy Pick</span>
       </div>
+      <p class="no-results hidden">No items match your search.</p>
     </div>
 
-    
     <div class="menu-grid hidden" id="tab-food">
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="butter-croissant" data-name="Butter Croissant" data-category="food" data-price="140" data-desc="Flaky, golden, laminated in-house. Best eaten warm.">
         <div class="menu-card-top">
           <span class="menu-icon">🥐</span>
           <span class="menu-price">₹140</span>
@@ -194,7 +207,7 @@
         <p>Flaky, golden, laminated in-house. Best eaten warm.</p>
         <span class="menu-tag">Bestseller</span>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="walnut-banana-cake" data-name="Walnut Banana Cake" data-category="food" data-price="180" data-desc="Moist, old-fashioned banana bread loaded with toasted walnuts.">
         <div class="menu-card-top">
           <span class="menu-icon">🍰</span>
           <span class="menu-price">₹180</span>
@@ -202,7 +215,7 @@
         <h3>Walnut Banana Cake</h3>
         <p>Moist, old-fashioned banana bread loaded with toasted walnuts.</p>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="croque-monsieur" data-name="Croque Monsieur" data-category="food" data-price="260" data-desc="Gruyère, ham & béchamel on sourdough. The Parisian classic.">
         <div class="menu-card-top">
           <span class="menu-icon">🥪</span>
           <span class="menu-price">₹260</span>
@@ -210,7 +223,7 @@
         <h3>Croque Monsieur</h3>
         <p>Gruyère, ham & béchamel on sourdough. The Parisian classic.</p>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" role="button" tabindex="0" data-id="creme-caramel" data-name="Crème Caramel" data-category="food" data-price="160" data-desc="Silky, wobbly, bittersweet. Grandma's recipe, unchanged.">
         <div class="menu-card-top">
           <span class="menu-icon">🍮</span>
           <span class="menu-price">₹160</span>
@@ -219,10 +232,118 @@
         <p>Silky, wobbly, bittersweet. Grandma's recipe, unchanged.</p>
         <span class="menu-tag">Signature</span>
       </div>
+      <p class="no-results hidden">No items match your search.</p>
     </div>
   </section>
 
-  
+  <section class="checkout-section" id="checkout">
+    <div class="section-header">
+      <p class="section-eyebrow">— Fast Checkout —</p>
+      <h2 class="section-title">Ready to Deliver</h2>
+      <p class="section-sub">Fill in your details and choose a payment method for a smooth order.</p>
+    </div>
+    <div class="checkout-grid">
+      <div class="checkout-form-card">
+        <p class="checkout-note">All fields are required before placing your order.</p>
+        <div class="checkout-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="checkoutName">Full Name</label>
+              <input type="text" id="checkoutName" placeholder="Margaret Holt" />
+            </div>
+            <div class="form-group">
+              <label for="checkoutMobile">Mobile Number</label>
+              <input type="tel" id="checkoutMobile" placeholder="+91 98765 43210" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="checkoutEmail">Email Address</label>
+            <input type="email" id="checkoutEmail" placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="checkoutAddress">Complete Delivery Address</label>
+            <textarea id="checkoutAddress" rows="3" placeholder="Apartment, suite, unit, building, floor, etc."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="checkoutHouse">House / Flat Number</label>
+              <input type="text" id="checkoutHouse" placeholder="House 12A" />
+            </div>
+            <div class="form-group">
+              <label for="checkoutStreet">Street</label>
+              <input type="text" id="checkoutStreet" placeholder="Bunder Street" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="checkoutArea">Area</label>
+              <input type="text" id="checkoutArea" placeholder="Fort" />
+            </div>
+            <div class="form-group">
+              <label for="checkoutCity">City</label>
+              <input type="text" id="checkoutCity" placeholder="Mumbai" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="checkoutState">State</label>
+              <input type="text" id="checkoutState" placeholder="Maharashtra" />
+            </div>
+            <div class="form-group">
+              <label for="checkoutPincode">Pincode</label>
+              <input type="text" id="checkoutPincode" placeholder="400001" />
+            </div>
+          </div>
+        </div>
+        <div class="payment-card">
+          <p class="payment-title">Payment Method</p>
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="UPI" checked />
+            <span>UPI Payment</span>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="COD" />
+            <span>Cash On Delivery</span>
+          </label>
+          <div class="upi-group" id="upiGroup">
+            <div class="qr-placeholder">
+              <span>QR</span>
+              <p>Scan with your UPI app</p>
+            </div>
+            <div class="form-group">
+              <label for="checkoutUpi">UPI ID</label>
+              <input type="text" id="checkoutUpi" placeholder="margaret@upi" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="checkout-summary-card">
+        <div class="summary-header">
+          <h3>Order Summary</h3>
+          <p id="checkoutTotalItems">0 items</p>
+        </div>
+        <div class="summary-list" id="checkoutSummaryList"></div>
+        <div class="summary-totals">
+          <span>Total</span>
+          <strong id="checkoutTotalAmount">₹0</strong>
+        </div>
+        <button class="btn checkout-btn" id="placeOrderBtn">Place Order</button>
+        <p class="checkout-message hidden" id="checkoutError"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="orders-section" id="orders">
+    <div class="section-header">
+      <p class="section-eyebrow">— Past Orders —</p>
+      <h2 class="section-title">My Orders</h2>
+      <p class="section-sub">Your order records are saved locally so you can revisit them anytime.</p>
+    </div>
+    <div class="orders-list" id="ordersList"></div>
+    <p class="empty-orders hidden" id="emptyOrdersMsg">No orders placed yet. Start by adding a few items to your cart.</p>
+    <button class="btn" id="exportDataBtn" style="margin-top: 1.5rem;">Download My Orders & Info</button>
+  </section>
+
   <section class="story-section" id="story">
     <div class="story-inner">
       <div class="story-text">
@@ -262,47 +383,6 @@
     </div>
   </section>
 
- 
-  <section class="gallery-section" id="gallery">
-    <div class="section-header">
-      <p class="section-eyebrow">— Moments —</p>
-      <h2 class="section-title">The Atmosphere</h2>
-    </div>
-    <div class="gallery-grid">
-      <div class="gallery-item g1">
-        <div class="gallery-placeholder">
-          <span>☕</span>
-          <p>Morning Pour</p>
-        </div>
-      </div>
-      <div class="gallery-item g2">
-        <div class="gallery-placeholder">
-          <span>🌿</span>
-          <p>Latte Art</p>
-        </div>
-      </div>
-      <div class="gallery-item g3">
-        <div class="gallery-placeholder">
-          <span>📚</span>
-          <p>A Quiet Corner</p>
-        </div>
-      </div>
-      <div class="gallery-item g4">
-        <div class="gallery-placeholder">
-          <span>🥐</span>
-          <p>Fresh Bakes</p>
-        </div>
-      </div>
-      <div class="gallery-item g5">
-        <div class="gallery-placeholder">
-          <span>🫙</span>
-          <p>Our Pantry</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  
   <section class="testimonials-section">
     <div class="section-header">
       <p class="section-eyebrow">— Regulars Say —</p>
@@ -327,7 +407,6 @@
     </div>
   </section>
 
-  
   <section class="contact-section" id="contact">
     <div class="contact-inner">
       <div class="contact-info">
@@ -362,8 +441,6 @@
           </div>
         </div>
       </div>
-
-      
       <div class="contact-form-wrap">
         <h3>Leave a Note</h3>
         <div class="form-group">
@@ -384,7 +461,78 @@
     </div>
   </section>
 
-  
+  <div class="order-panels">
+    <div class="cart-drawer hidden" id="cartDrawer">
+      <div class="cart-drawer-inner">
+        <div class="cart-header">
+          <div>
+            <p class="section-eyebrow">Your Bag</p>
+            <h2>Cart</h2>
+          </div>
+          <button class="modal-close" id="closeCartBtn" aria-label="Close cart">×</button>
+        </div>
+        <div class="cart-content">
+          <div class="cart-empty" id="emptyCartMessage">Your cart is empty.<br/>Add items to begin your order.</div>
+          <div class="cart-items" id="cartItems"></div>
+        </div>
+        <div class="cart-footer">
+          <div class="cart-footer-row">
+            <span>Total items</span><span id="drawerTotalItems">0</span>
+          </div>
+          <div class="cart-footer-row">
+            <span>Grand total</span><strong id="drawerTotalAmount">₹0</strong>
+          </div>
+          <div class="cart-actions">
+            <button class="btn btn-secondary" id="emptyCartBtn">Empty Cart</button>
+            <button class="btn" id="checkoutFromCartBtn">Checkout</button>
+          </div>
+          <button class="btn continue-btn" id="continueShoppingBtn">Continue Shopping</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop hidden" id="drawerBackdrop"></div>
+
+    <div class="modal-overlay hidden" id="itemModal">
+      <div class="modal-card">
+        <button class="modal-close" id="closeItemModal" aria-label="Close item details">×</button>
+        <div class="modal-header">
+          <span class="menu-icon" id="modalIcon">☕</span>
+          <div>
+            <h3 id="modalName">Espresso</h3>
+            <p id="modalPrice">₹180</p>
+          </div>
+        </div>
+        <p class="modal-description" id="modalDesc">Rich, bold & unapologetic. Double shot of our house blend.</p>
+        <div class="quantity-block">
+          <label>Quantity</label>
+          <div class="quantity-selector">
+            <button class="quantity-btn" id="modalQtyMinus">−</button>
+            <span id="modalQty">1</span>
+            <button class="quantity-btn" id="modalQtyPlus">＋</button>
+          </div>
+        </div>
+        <button class="btn modal-add-btn" id="addToCartBtn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="orderConfirmOverlay">
+      <div class="modal-card confirmation-card">
+        <div class="confirmation-visual">✓</div>
+        <h2>Order Confirmed</h2>
+        <p class="confirmation-note">Your delicious order is on its way.</p>
+        <div class="confirmation-details">
+          <p><strong>Order ID:</strong> <span id="confirmOrderId"></span></p>
+          <p><strong>Name:</strong> <span id="confirmCustomer"></span></p>
+          <p><strong>Delivery:</strong> <span id="confirmAddress"></span></p>
+          <p><strong>Payment:</strong> <span id="confirmPayment"></span></p>
+          <p><strong>Total:</strong> <span id="confirmTotal"></span></p>
+          <p><strong>ETA:</strong> <span id="confirmEta"></span></p>
+        </div>
+        <button class="btn" id="confirmDoneBtn">Back to Menu</button>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-logo">
@@ -395,13 +543,15 @@
       <div class="footer-links">
         <a href="#home">Home</a>
         <a href="#menu">Menu</a>
-        <a href="#story">Our Story</a>
+        <a href="#checkout">Checkout</a>
+        <a href="#orders">My Orders</a>
         <a href="#contact">Contact</a>
       </div>
       <p class="footer-copy">© 2024 The Copper Kettle. All rights reserved.</p>
     </div>
   </footer>
 
+  <div class="toast-container" id="toastContainer"></div>
   <script src="script.js"></script>
 </body>
 </html>
