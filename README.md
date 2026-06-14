@@ -1,4 +1,6 @@
 #  The Copper Kettle – Vintage Café Website
+https://thecopperkettle.netlify.app/
+
 
 A beautifully designed vintage-inspired café website for **The Copper Kettle**, featuring an elegant user interface, interactive menu system, shopping cart functionality, checkout flow, and order management.
 
