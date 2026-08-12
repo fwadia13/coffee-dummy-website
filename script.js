@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
     placeOrderBtn.disabled = true;
     placeOrderBtn.textContent = paymentMethod === 'UPI' ? 'Processing UPI...' : 'Placing order...';
 
-    setTimeout(() => {
+    setTimeout(async () => {
       const order = createOrder(paymentMethod);
       orders.unshift(order);
       saveOrders();
@@ -375,8 +375,9 @@ document.addEventListener('DOMContentLoaded', () => {
       updateCartDisplay();
       renderOrders();
       clearCheckoutForm();
+      const notificationSent = await sendOrderNotification(order);
       showOrderConfirmation(order);
-      sendOrderNotification(order);
+      if (!notificationSent) showToast('Order placed, but we could not send the email notification.');
       placeOrderBtn.disabled = false;
       placeOrderBtn.textContent = 'Place Order';
     }, paymentMethod === 'UPI' ? 1200 : 700);
@@ -451,7 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function sendOrderNotification(order) {
     const items = order.items.map(item => `${item.qty}× ${item.name} — ₹${item.price * item.qty}`).join('\n');
-    sendWeb3Form({
+    return sendWeb3Form({
       subject: `New order ${order.id} — The Copper Kettle`,
       name: order.customer,
       email: order.email,

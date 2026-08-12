@@ -1,0 +1,8 @@
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/notifications"
+  to = "/.netlify/functions/notifications"
+  status = 200
+  force = true

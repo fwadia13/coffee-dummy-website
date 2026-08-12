@@ -39,5 +39,3 @@ export default async (request) => {
     return Response.json({ success: false, message: 'Unable to send notification.' }, { status: 500 });
   }
 };
-
-export const config = { path: '/api/notifications' };
