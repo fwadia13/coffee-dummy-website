@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const ordersList = document.getElementById('ordersList');
   const emptyOrdersMsg = document.getElementById('emptyOrdersMsg');
   const exportDataBtn = document.getElementById('exportDataBtn');
+<<<<<<< HEAD
   const trackConfirmedOrderBtn = document.getElementById('trackConfirmedOrderBtn');
   const trackingOverlay = document.getElementById('trackingOverlay');
   const trackingCloseBtn = document.getElementById('trackingCloseBtn');
@@ -69,6 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const trackingStatusNote = document.getElementById('trackingStatusNote');
   const trackingTimeline = document.getElementById('trackingTimeline');
   const trackingEta = document.getElementById('trackingEta');
+=======
+>>>>>>> d6faeafb750ac0fbfedadb76ec48388ed13d6ccb
   const sendBtn = document.getElementById('sendBtn');
   const formSuccess = document.getElementById('formSuccess');
   const nameInput = document.getElementById('name');
@@ -376,7 +379,10 @@ document.addEventListener('DOMContentLoaded', () => {
       renderOrders();
       clearCheckoutForm();
       showOrderConfirmation(order);
+<<<<<<< HEAD
       sendOrderNotification(order);
+=======
+>>>>>>> d6faeafb750ac0fbfedadb76ec48388ed13d6ccb
       placeOrderBtn.disabled = false;
       placeOrderBtn.textContent = 'Place Order';
     }, paymentMethod === 'UPI' ? 1200 : 700);
@@ -418,8 +424,12 @@ document.addEventListener('DOMContentLoaded', () => {
       amount: totalAmount,
       items: cart.map(item => ({ name: item.name, qty: item.qty, price: item.price })),
       status: paymentMethod === 'COD' ? 'Confirmed' : 'Paid',
+<<<<<<< HEAD
       eta: '30-45 minutes',
       createdAt: Date.now()
+=======
+      eta: '30-45 minutes'
+>>>>>>> d6faeafb750ac0fbfedadb76ec48388ed13d6ccb
     };
   }
 
@@ -431,6 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmTotal.textContent = `₹${order.amount}`;
     confirmEta.textContent = order.eta;
     orderConfirmOverlay.classList.remove('hidden');
+<<<<<<< HEAD
     trackConfirmedOrderBtn.dataset.orderId = order.id;
   }
 
@@ -464,6 +475,8 @@ document.addEventListener('DOMContentLoaded', () => {
       payment_method: order.paymentMethod,
       order_items: items
     });
+=======
+>>>>>>> d6faeafb750ac0fbfedadb76ec48388ed13d6ccb
   }
 
   confirmDoneBtn.addEventListener('click', () => {
@@ -471,11 +484,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.hash = '#menu';
   });
 
+<<<<<<< HEAD
   trackConfirmedOrderBtn.addEventListener('click', () => {
     const order = orders.find(item => item.id === trackConfirmedOrderBtn.dataset.orderId);
     if (order) openOrderTracking(order);
   });
 
+=======
+>>>>>>> d6faeafb750ac0fbfedadb76ec48388ed13d6ccb
   orderConfirmOverlay.addEventListener('click', event => {
     if (event.target === orderConfirmOverlay) {
       orderConfirmOverlay.classList.add('hidden');
@@ -509,6 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
     orders.forEach(order => {
       const card = document.createElement('div');
       card.className = 'order-card';
+<<<<<<< HEAD
       card.tabIndex = 0;
       card.setAttribute('role', 'button');
       card.setAttribute('aria-label', `Track order ${order.id}`);
@@ -516,10 +533,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const tracking = getTrackingState(order);
       card.innerHTML = `
         <div class="order-card-header"><h4>Order ${order.id}</h4><span class="order-status-pill">${tracking.status}</span></div>
+=======
+      const items = order.items.map(item => `${item.qty}× ${item.name}`).join(', ');
+      card.innerHTML = `
+        <h4>Order ${order.id}</h4>
+>>>>>>> d6faeafb750ac0fbfedadb76ec48388ed13d6ccb
         <p><strong>Date:</strong> ${order.date}</p>
         <p><strong>Items:</strong> ${items}</p>
         <p><strong>Amount:</strong> ₹${order.amount}</p>
         <p><strong>Payment:</strong> ${order.paymentMethod}</p>
+<<<<<<< HEAD
         <p><strong>Status:</strong> ${tracking.status}</p>
         <button class="btn btn-secondary track-order-btn" type="button" data-order-id="${order.id}">Track Order</button>
       `;
@@ -533,10 +556,15 @@ document.addEventListener('DOMContentLoaded', () => {
           openOrderTracking(order);
         }
       });
+=======
+        <p><strong>Status:</strong> ${order.status}</p>
+      `;
+>>>>>>> d6faeafb750ac0fbfedadb76ec48388ed13d6ccb
       ordersList.appendChild(card);
     });
   }
 
+<<<<<<< HEAD
   function getTrackingState(order) {
     const minutesElapsed = Math.floor((Date.now() - (order.createdAt || Date.now())) / 60000);
     const steps = [
@@ -573,6 +601,8 @@ document.addEventListener('DOMContentLoaded', () => {
   trackingCloseBtn.addEventListener('click', closeOrderTracking);
   trackingOverlay.addEventListener('click', event => { if (event.target === trackingOverlay) closeOrderTracking(); });
 
+=======
+>>>>>>> d6faeafb750ac0fbfedadb76ec48388ed13d6ccb
   function showToast(message) {
     const toast = document.createElement('div');
     toast.className = 'toast';
@@ -621,7 +651,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function setupSendMessage() {
+<<<<<<< HEAD
     sendBtn.addEventListener('click', async () => {
+=======
+    sendBtn.addEventListener('click', () => {
+>>>>>>> d6faeafb750ac0fbfedadb76ec48388ed13d6ccb
       const name = nameInput.value.trim();
       const email = emailInput.value.trim();
       const msg = msgInput.value.trim();
@@ -637,6 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       sendBtn.textContent = 'Sending...';
       sendBtn.disabled = true;
+<<<<<<< HEAD
       const sent = await sendWeb3Form({
         subject: `New customer note from ${name}`,
         name,
@@ -654,6 +689,17 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         showFormError('Your message could not be sent. Please try again.');
       }
+=======
+      setTimeout(() => {
+        nameInput.value = '';
+        emailInput.value = '';
+        msgInput.value = '';
+        sendBtn.textContent = 'Send Message';
+        sendBtn.disabled = false;
+        formSuccess.classList.remove('hidden');
+        setTimeout(() => formSuccess.classList.add('hidden'), 4000);
+      }, 1200);
+>>>>>>> d6faeafb750ac0fbfedadb76ec48388ed13d6ccb
     });
   }
 
