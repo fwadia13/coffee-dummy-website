@@ -61,6 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const ordersList = document.getElementById('ordersList');
   const emptyOrdersMsg = document.getElementById('emptyOrdersMsg');
   const exportDataBtn = document.getElementById('exportDataBtn');
+  const trackConfirmedOrderBtn = document.getElementById('trackConfirmedOrderBtn');
+  const trackingOverlay = document.getElementById('trackingOverlay');
+  const trackingCloseBtn = document.getElementById('trackingCloseBtn');
+  const trackingOrderId = document.getElementById('trackingOrderId');
+  const trackingStatus = document.getElementById('trackingStatus');
+  const trackingStatusNote = document.getElementById('trackingStatusNote');
+  const trackingTimeline = document.getElementById('trackingTimeline');
+  const trackingEta = document.getElementById('trackingEta');
   const sendBtn = document.getElementById('sendBtn');
   const formSuccess = document.getElementById('formSuccess');
   const nameInput = document.getElementById('name');
@@ -368,6 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderOrders();
       clearCheckoutForm();
       showOrderConfirmation(order);
+      sendOrderNotification(order);
       placeOrderBtn.disabled = false;
       placeOrderBtn.textContent = 'Place Order';
     }, paymentMethod === 'UPI' ? 1200 : 700);
@@ -409,7 +418,8 @@ document.addEventListener('DOMContentLoaded', () => {
       amount: totalAmount,
       items: cart.map(item => ({ name: item.name, qty: item.qty, price: item.price })),
       status: paymentMethod === 'COD' ? 'Confirmed' : 'Paid',
-      eta: '30-45 minutes'
+      eta: '30-45 minutes',
+      createdAt: Date.now()
     };
   }
 
@@ -421,11 +431,49 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmTotal.textContent = `₹${order.amount}`;
     confirmEta.textContent = order.eta;
     orderConfirmOverlay.classList.remove('hidden');
+    trackConfirmedOrderBtn.dataset.orderId = order.id;
+  }
+
+  async function sendWeb3Form(fields) {
+    try {
+      const response = await fetch('/api/notifications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(fields)
+      });
+      const result = await response.json();
+      return response.ok && result.success;
+    } catch (error) {
+      console.error('Web3Forms submission failed:', error);
+      return false;
+    }
+  }
+
+  function sendOrderNotification(order) {
+    const items = order.items.map(item => `${item.qty}× ${item.name} — ₹${item.price * item.qty}`).join('\n');
+    sendWeb3Form({
+      subject: `New order ${order.id} — The Copper Kettle`,
+      name: order.customer,
+      email: order.email,
+      message: `A new order has been placed.\n\nOrder ID: ${order.id}\nDate: ${order.date}\nItems:\n${items}\n\nTotal: ₹${order.amount}\nPayment: ${order.paymentMethod}\nDelivery address: ${order.address}\nMobile: ${order.mobile}`,
+      order_id: order.id,
+      customer_name: order.customer,
+      customer_phone: order.mobile,
+      delivery_address: order.address,
+      order_total: `₹${order.amount}`,
+      payment_method: order.paymentMethod,
+      order_items: items
+    });
   }
 
   confirmDoneBtn.addEventListener('click', () => {
     orderConfirmOverlay.classList.add('hidden');
     window.location.hash = '#menu';
+  });
+
+  trackConfirmedOrderBtn.addEventListener('click', () => {
+    const order = orders.find(item => item.id === trackConfirmedOrderBtn.dataset.orderId);
+    if (order) openOrderTracking(order);
   });
 
   orderConfirmOverlay.addEventListener('click', event => {
@@ -461,18 +509,69 @@ document.addEventListener('DOMContentLoaded', () => {
     orders.forEach(order => {
       const card = document.createElement('div');
       card.className = 'order-card';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', `Track order ${order.id}`);
       const items = order.items.map(item => `${item.qty}× ${item.name}`).join(', ');
+      const tracking = getTrackingState(order);
       card.innerHTML = `
-        <h4>Order ${order.id}</h4>
+        <div class="order-card-header"><h4>Order ${order.id}</h4><span class="order-status-pill">${tracking.status}</span></div>
         <p><strong>Date:</strong> ${order.date}</p>
         <p><strong>Items:</strong> ${items}</p>
         <p><strong>Amount:</strong> ₹${order.amount}</p>
         <p><strong>Payment:</strong> ${order.paymentMethod}</p>
-        <p><strong>Status:</strong> ${order.status}</p>
+        <p><strong>Status:</strong> ${tracking.status}</p>
+        <button class="btn btn-secondary track-order-btn" type="button" data-order-id="${order.id}">Track Order</button>
       `;
+      card.querySelector('.track-order-btn').addEventListener('click', () => openOrderTracking(order));
+      card.addEventListener('click', event => {
+        if (!event.target.closest('.track-order-btn')) openOrderTracking(order);
+      });
+      card.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openOrderTracking(order);
+        }
+      });
       ordersList.appendChild(card);
     });
   }
+
+  function getTrackingState(order) {
+    const minutesElapsed = Math.floor((Date.now() - (order.createdAt || Date.now())) / 60000);
+    const steps = [
+      { title: 'Order confirmed', note: 'We have received your order.' },
+      { title: 'Preparing your order', note: 'Your items are being freshly prepared.' },
+      { title: 'Out for delivery', note: 'Your order is on its way to you.' },
+      { title: 'Delivered', note: 'Enjoy every sip and bite.' }
+    ];
+    const currentStep = minutesElapsed >= 45 ? 3 : minutesElapsed >= 20 ? 2 : minutesElapsed >= 5 ? 1 : 0;
+    return { steps, currentStep, status: steps[currentStep].title };
+  }
+
+  function openOrderTracking(order) {
+    const tracking = getTrackingState(order);
+    trackingOrderId.textContent = `Order ${order.id}`;
+    trackingStatus.textContent = tracking.status;
+    trackingStatusNote.textContent = tracking.steps[tracking.currentStep].note;
+    trackingEta.textContent = tracking.currentStep === 3 ? 'Delivered' : order.eta || '30-45 minutes';
+    trackingTimeline.innerHTML = tracking.steps.map((step, index) => {
+      const state = index < tracking.currentStep ? 'complete' : index === tracking.currentStep ? 'active' : '';
+      const marker = index <= tracking.currentStep ? '✓' : '';
+      return `<div class="tracking-step ${state}"><span class="tracking-step-marker">${marker}</span><div><strong>${step.title}</strong><p>${step.note}</p></div></div>`;
+    }).join('');
+    orderConfirmOverlay.classList.add('hidden');
+    trackingOverlay.classList.remove('hidden');
+    trackingOverlay.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeOrderTracking() {
+    trackingOverlay.classList.add('hidden');
+    trackingOverlay.setAttribute('aria-hidden', 'true');
+  }
+
+  trackingCloseBtn.addEventListener('click', closeOrderTracking);
+  trackingOverlay.addEventListener('click', event => { if (event.target === trackingOverlay) closeOrderTracking(); });
 
   function showToast(message) {
     const toast = document.createElement('div');
@@ -488,27 +587,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  function setupExportData() {
-    exportDataBtn.addEventListener('click', () => {
-      const ordersData = {
-        exportDate: new Date().toLocaleString('en-IN'),
-        totalOrders: orders.length,
-        orders: orders
-      };
-      const dataStr = JSON.stringify(ordersData, null, 2);
-      const dataBlob = new Blob([dataStr], { type: 'application/json' });
-      const url = URL.createObjectURL(dataBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `copper-kettle-orders-${new Date().toISOString().split('T')[0]}.json`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      showToast('Orders downloaded successfully.');
-    });
   }
 
   function animateReveal() {
@@ -543,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function setupSendMessage() {
-    sendBtn.addEventListener('click', () => {
+    sendBtn.addEventListener('click', async () => {
       const name = nameInput.value.trim();
       const email = emailInput.value.trim();
       const msg = msgInput.value.trim();
@@ -559,15 +637,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       sendBtn.textContent = 'Sending...';
       sendBtn.disabled = true;
-      setTimeout(() => {
+      const sent = await sendWeb3Form({
+        subject: `New customer note from ${name}`,
+        name,
+        email,
+        message: msg
+      });
+      sendBtn.textContent = 'Send Message';
+      sendBtn.disabled = false;
+      if (sent) {
         nameInput.value = '';
         emailInput.value = '';
         msgInput.value = '';
-        sendBtn.textContent = 'Send Message';
-        sendBtn.disabled = false;
         formSuccess.classList.remove('hidden');
         setTimeout(() => formSuccess.classList.add('hidden'), 4000);
-      }, 1200);
+      } else {
+        showFormError('Your message could not be sent. Please try again.');
+      }
     });
   }
 

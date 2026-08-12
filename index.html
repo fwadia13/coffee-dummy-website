@@ -528,7 +528,26 @@
           <p><strong>Total:</strong> <span id="confirmTotal"></span></p>
           <p><strong>ETA:</strong> <span id="confirmEta"></span></p>
         </div>
-        <button class="btn" id="confirmDoneBtn">Back to Menu</button>
+        <div class="confirmation-actions">
+          <button class="btn" id="trackConfirmedOrderBtn">Track Order</button>
+          <button class="btn btn-secondary" id="confirmDoneBtn">Back to Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="trackingOverlay" aria-hidden="true">
+      <div class="modal-card tracking-card" role="dialog" aria-modal="true" aria-labelledby="trackingTitle">
+        <button class="modal-close tracking-close" id="trackingCloseBtn" aria-label="Close order tracking">×</button>
+        <p class="section-eyebrow">— Delivery update —</p>
+        <h2 id="trackingTitle">Tracking your order</h2>
+        <p class="tracking-order-id" id="trackingOrderId"></p>
+        <div class="tracking-status">
+          <span class="tracking-pulse"></span>
+          <div><strong id="trackingStatus"></strong><p id="trackingStatusNote"></p></div>
+        </div>
+        <div class="tracking-timeline" id="trackingTimeline"></div>
+        <p class="tracking-eta"><strong>Estimated arrival:</strong> <span id="trackingEta"></span></p>
+        <p class="tracking-demo-note">Demo tracking only — live driver location is not available.</p>
       </div>
     </div>
   </div>
